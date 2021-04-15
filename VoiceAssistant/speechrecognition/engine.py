@@ -76,7 +76,7 @@ class SpeechRecognitionEngine:
             out = torch.nn.functional.softmax(out, dim=2)
             out = out.transpose(0, 1)
             self.out_args = out if self.out_args is None else torch.cat((self.out_args, out), dim=1)
-            results = self.beam_search(self.out_args)
+            results = self.beam_search(self.out_args, fname)
             current_context_length = self.out_args.shape[1] / 50  # in seconds
             if self.out_args.shape[1] > self.context_length:
                 self.out_args = None
